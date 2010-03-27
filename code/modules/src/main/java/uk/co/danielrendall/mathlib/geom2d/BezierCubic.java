@@ -1,12 +1,12 @@
-package uk.co.danielrendall.fractdim.geom;
+package uk.co.danielrendall.mathlib.geom2d;
 
 /**
  * @author Daniel Rendall
  * @created 23-May-2009 18:21:39
  */
-public class BezierCubic implements ParametricCurve {
+public class BezierCubic implements uk.co.danielrendall.mathlib.geom2d.ParametricCurve {
 
-    private final Vec start, control1, control2, end;
+    private final uk.co.danielrendall.mathlib.geom2d.Vec start, control1, control2, end;
 
     public BezierCubic(Point start, Point control1, Point control2, Point end) {
         this.start = new Vec(start);

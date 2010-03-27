@@ -1,4 +1,4 @@
-package uk.co.danielrendall.fractdim.geom;
+package uk.co.danielrendall.mathlib.geom2d;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;

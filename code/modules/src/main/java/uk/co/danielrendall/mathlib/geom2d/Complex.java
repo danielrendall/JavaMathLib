@@ -1,6 +1,4 @@
-package uk.co.danielrendall.fractdim.geom;
-
-import uk.co.danielrendall.fractdim.logging.Log;
+package uk.co.danielrendall.mathlib.geom2d;
 
 /**
  * @author Daniel Rendall
@@ -55,33 +53,10 @@ public final class Complex implements XY {
     }
 
     public final double arg() {
-        if (xIsZero) {
-            // on the y axis
-            if (yIsZero) {
-                // the zero vector
-                Log.misc.warn("Zero vector asked for argument");
-                return 0.0;
-            } else {
-                // either straight up or straight down
-                return (y > 0.0d) ? HALF_PI : -HALF_PI;
-            }
+        if (xIsZero && yIsZero) {
+            return 0.0d;
         } else {
-            if (yIsZero) {
-                // on the x axis; either right or left
-                return (x > 0) ? 0.0d : -Math.PI;
-            } else {
-                if (x >= 0.0d) {
-                    return Math.atan(y/x);
-                } else {
-                    if (y >= 0.0d) {
-                        // upper left quadrant
-                        return Math.atan(y/x) + Math.PI;
-                    } else {
-                        // lower left quadrant
-                        return Math.atan(y/x) - Math.PI;
-                    }
-                }
-            }
+            return Math.atan2(y, x);
         }
     }
 

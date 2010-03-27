@@ -1,4 +1,4 @@
-package uk.co.danielrendall.fractdim.geom;
+package uk.co.danielrendall.mathlib.geom2d;
 
 /**
  * Created by IntelliJ IDEA.
