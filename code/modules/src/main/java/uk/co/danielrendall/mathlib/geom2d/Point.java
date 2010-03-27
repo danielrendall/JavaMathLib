@@ -56,4 +56,8 @@ public class Point implements XY {
     public int hashCode() {
         return rep.hashCode();
     }
+
+    public boolean isOrigin() {
+        return ORIGIN.equals(this);
+    }
 }
