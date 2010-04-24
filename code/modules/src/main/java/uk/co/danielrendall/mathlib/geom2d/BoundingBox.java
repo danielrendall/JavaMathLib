@@ -88,6 +88,10 @@ public class BoundingBox {
         return maxY - minY;
     }
 
+    public String forSvg() {
+        return String.format("%5.1f %5.1f %5.1f %5.1f", minX, minY, maxX, maxY);
+    }
+
     @Override
     public String toString() {
         return String.format("{minX=%5.4f, maxX=%5.4f, minY=%5.4f, maxY=%5.4f, width=%5.4f, height=%5.4f'}'", minX, maxX, minY, maxY, getWidth(), getHeight());
