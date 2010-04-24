@@ -23,9 +23,9 @@ public class BoundingBox {
 
     public BoundingBox(double[] xValues, double[] yValues) {
         double minX = Double.MAX_VALUE;
-        double maxX = Double.MIN_VALUE;
+        double maxX = -Double.MAX_VALUE;
         double minY = Double.MAX_VALUE;
-        double maxY = Double.MIN_VALUE;
+        double maxY = -Double.MAX_VALUE;
         for (int i=0; i < xValues.length; i++) {
             minX = Math.min(minX, xValues[i]);
             maxX = Math.max(maxX, xValues[i]);
@@ -90,6 +90,36 @@ public class BoundingBox {
 
     @Override
     public String toString() {
-        return String.format("{minX=%5.3f, maxX=%5.3f, minY=%5.3f, maxY=%5.3f, width=%5.3f, height=%5.3f'}'", minX, maxX, minY, maxY, getWidth(), getHeight());
+        return String.format("{minX=%5.4f, maxX=%5.4f, minY=%5.4f, maxY=%5.4f, width=%5.4f, height=%5.4f'}'", minX, maxX, minY, maxY, getWidth(), getHeight());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BoundingBox that = (BoundingBox) o;
+
+        if (Double.compare(that.maxX, maxX) != 0) return false;
+        if (Double.compare(that.maxY, maxY) != 0) return false;
+        if (Double.compare(that.minX, minX) != 0) return false;
+        if (Double.compare(that.minY, minY) != 0) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = minX != +0.0d ? Double.doubleToLongBits(minX) : 0L;
+        result = (int) (temp ^ (temp >>> 32));
+        temp = maxX != +0.0d ? Double.doubleToLongBits(maxX) : 0L;
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = minY != +0.0d ? Double.doubleToLongBits(minY) : 0L;
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = maxY != +0.0d ? Double.doubleToLongBits(maxY) : 0L;
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 }
