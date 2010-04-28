@@ -6,7 +6,16 @@ package uk.co.danielrendall.mathlib.geom2d;
  */
 public final class Vec implements XY {
 
-    final Complex rep;
+    private final Complex rep;
+
+    public final static Vec ZERO = new Vec(0.0d, 0.0d);
+
+    public final static Vec I = new Vec(1.0d, 0.0d);
+    public final static Vec J = new Vec(0.0d, 1.0d);
+
+    public static Vec unit(double angle) {
+        return new Vec(Complex.unit(angle));
+    }
 
     private Vec(Complex c) {
         rep = c;
@@ -17,11 +26,11 @@ public final class Vec implements XY {
     }
 
     public Vec(Point to) {
-        rep = new Complex(to.rep.x, to.rep.y);
+        rep = to.rep();
     }
 
     public Vec(Point from, Point to) {
-        rep = new Complex(to.rep.x - from.rep.x, to.rep.y - from.rep.y);
+        rep = to.rep().sub(from.rep());
     }
 
     public final double length() {
@@ -66,15 +75,15 @@ public final class Vec implements XY {
     }
 
     public final String toString() {
-        return (String.format("(%5.3f, %5.3f)", rep.x, rep.y));
+        return (String.format("(%5.3f, %5.3f)", rep.x(), rep.y()));
     }
 
     public final double x() {
-        return rep.x;
+        return rep.x();
     }
 
     public final double y() {
-        return rep.y;
+        return rep.y();
     }
 
     public Vec normalize() {
@@ -82,7 +91,11 @@ public final class Vec implements XY {
     }
 
     public double dotProduct(Vec other) {
-        return rep.x * other.rep.x + rep.y * other.rep.y;
+        return x() * other.x() + y() * other.y();
+    }
+
+    final Complex rep() {
+        return rep;
     }
 
     @Override

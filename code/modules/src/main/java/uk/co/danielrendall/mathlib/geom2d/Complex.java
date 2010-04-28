@@ -14,8 +14,8 @@ public final class Complex implements XY {
     private final boolean yIsZero;
 
     // make these package visible
-    final double x;
-    final double y;
+    private final double x;
+    private final double y;
 
     public Complex(double x, double y) {
         this.x = x;

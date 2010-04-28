@@ -25,7 +25,7 @@ public class Point implements XY {
     public final static Point ORIGIN = new Point(0.0d, 0.0d);
 
     // rep is package visible
-    final Complex rep;
+    private final Complex rep;
 
     private Point(Complex c) {
         rep = c;
@@ -36,7 +36,7 @@ public class Point implements XY {
     }
 
     public final Point displace(Vec vec) {
-        return new Point(rep.x + vec.rep.x, rep.y + vec.rep.y);
+        return new Point(rep.add(vec.rep()));
     }
 
     public final Point rotate(double angle) {
@@ -52,15 +52,19 @@ public class Point implements XY {
     }
 
     public final double x() {
-        return rep.x;
+        return rep.x();
     }
 
     public final double y() {
-        return rep.y;
+        return rep.y();
     }
 
     public final String toString() {
-        return (String.format("(%s, %s)", rep.x, rep.y));
+        return (String.format("(%s, %s)", rep.x(), rep.y()));
+    }
+
+    final Complex rep() {
+        return rep;
     }
 
     @Override
@@ -93,10 +97,10 @@ public class Point implements XY {
 
     public Compass getQuadrant() {
         if (isOrigin()) return Compass.CENTER;
-        if (rep.x == 0.0d) {
-            return (rep.y > 0.0d) ? Compass.N : Compass.S;
-        } else if (rep.y == 0.0d) {
-            return (rep.x > 0.0d) ? Compass.E : Compass.W;
+        if (rep.x() == 0.0d) {
+            return (rep.y() > 0.0d) ? Compass.N : Compass.S;
+        } else if (rep.y() == 0.0d) {
+            return (rep.x() > 0.0d) ? Compass.E : Compass.W;
         }
         double angle = rep.arg();
         if (angle < QUAD1) return Compass.SW;
