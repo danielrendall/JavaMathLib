@@ -4,7 +4,7 @@ package uk.co.danielrendall.mathlib.geom2d;
  * @author Daniel Rendall
  * @created 23-May-2009 18:21:39
  */
-public class BezierCubic implements uk.co.danielrendall.mathlib.geom2d.ParametricCurve {
+public final class BezierCubic implements uk.co.danielrendall.mathlib.geom2d.ParametricCurve {
 
     private final uk.co.danielrendall.mathlib.geom2d.Vec start, control1, control2, end;
 
@@ -25,7 +25,7 @@ public class BezierCubic implements uk.co.danielrendall.mathlib.geom2d.Parametri
     }
 
     public BoundingBox getBoundingBox() {
-        return new BoundingBox(new double[] { start.x(), control1.x(), control2.x(), end.x()},
+        return BoundingBox.containing(new double[] { start.x(), control1.x(), control2.x(), end.x()},
                 new double[] { start.y(), control1.y(), control2.y(), end.y()});
     }
 

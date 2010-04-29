@@ -4,7 +4,7 @@ package uk.co.danielrendall.mathlib.geom2d;
  * @author Daniel Rendall
  * @created 23-May-2009 11:07:08
  */
-public class Line implements ParametricCurve {
+public final class Line implements ParametricCurve {
 
     private final Point start, end;
     private final Vec vec;
@@ -44,7 +44,7 @@ public class Line implements ParametricCurve {
     }
 
     public BoundingBox getBoundingBox() {
-        return new BoundingBox(new double[] { start.x(), end.x()},
+        return BoundingBox.containing(new double[] { start.x(), end.x()},
                 new double[] { start.y(), end.y()});
     }
 

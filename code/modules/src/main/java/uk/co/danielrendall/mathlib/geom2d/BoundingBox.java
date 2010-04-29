@@ -7,11 +7,41 @@ package uk.co.danielrendall.mathlib.geom2d;
 * Time: 16:41:14
 * To change this template use File | Settings | File Templates.
 */
-public class BoundingBox {
+public final class BoundingBox {
     private final double minX, maxX, minY, maxY;
 
     public BoundingBox() {
         this(Double.MAX_VALUE, Double.MIN_VALUE, Double.MAX_VALUE, Double.MIN_VALUE);
+    }
+
+    public static BoundingBox containing(Point... points) {
+        double minX = Double.MAX_VALUE;
+        double maxX = -Double.MAX_VALUE;
+        double minY = Double.MAX_VALUE;
+        double maxY = -Double.MAX_VALUE;
+        for (Point p : points) {
+            minX = Math.min(minX, p.x());
+            maxX = Math.max(maxX, p.x());
+            minY = Math.min(minY, p.y());
+            maxY = Math.max(maxY, p.y());
+        }
+        return new BoundingBox(minX, maxX, minY, maxY);
+    }
+
+    public static BoundingBox containing(double[] xValues, double[] yValues) {
+        double minX = Double.MAX_VALUE;
+        double maxX = -Double.MAX_VALUE;
+        double minY = Double.MAX_VALUE;
+        double maxY = -Double.MAX_VALUE;
+        for (double xValue : xValues) {
+            minX = Math.min(minX, xValue);
+            maxX = Math.max(maxX, xValue);
+        }
+        for (double yValue : yValues) {
+            minY = Math.min(minY, yValue);
+            maxY = Math.max(maxY, yValue);
+        }
+        return new BoundingBox(minX, maxX, minY, maxY);
     }
 
     public BoundingBox(double minX, double maxX, double minY, double maxY) {
@@ -21,24 +51,7 @@ public class BoundingBox {
         this.maxY = maxY;
     }
 
-    public BoundingBox(double[] xValues, double[] yValues) {
-        double minX = Double.MAX_VALUE;
-        double maxX = -Double.MAX_VALUE;
-        double minY = Double.MAX_VALUE;
-        double maxY = -Double.MAX_VALUE;
-        for (int i=0; i < xValues.length; i++) {
-            minX = Math.min(minX, xValues[i]);
-            maxX = Math.max(maxX, xValues[i]);
-            minY = Math.min(minY, yValues[i]);
-            maxY = Math.max(maxY, yValues[i]);
-        }
-        this.minX = minX;
-        this.maxX = maxX;
-        this.minY = minY;
-        this.maxY = maxY;
-    }
-
-    public BoundingBox expandToInclude(BoundingBox other) {
+    public final BoundingBox expandToInclude(BoundingBox other) {
         boolean isIncluded = true;
         double newMinX = minX;
         double newMaxX = maxX;
@@ -86,6 +99,28 @@ public class BoundingBox {
 
     public double getHeight() {
         return maxY - minY;
+    }
+
+    public boolean contains(BoundingBox other) {
+        return minX < other.minX && maxX > other.maxX && minY < other.minY && maxY > other.maxY;
+    }
+
+    public boolean isContainedBy(BoundingBox other) {
+        return other.contains(this);
+    }
+
+    public boolean isOutside(BoundingBox other) {
+        return minX > other.maxX || maxX < other.minX || minY > other.maxY || maxY < other.minY;
+    }
+
+    public boolean intersects(BoundingBox other) {
+        return !contains(other) && !isContainedBy(other) && !isOutside(other);
+    }
+    
+    public Point randomPoint() {
+        double x = Math.random() * getWidth() + minX;
+        double y = Math.random() * getHeight() + minY;
+        return new Point(x, y);
     }
 
     public String forSvg() {

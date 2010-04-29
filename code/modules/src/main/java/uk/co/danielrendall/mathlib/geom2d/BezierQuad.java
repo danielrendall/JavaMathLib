@@ -4,7 +4,7 @@ package uk.co.danielrendall.mathlib.geom2d;
  * @author Daniel Rendall
  * @created 23-May-2009 18:20:30
  */
-public class BezierQuad implements ParametricCurve {
+public final class BezierQuad implements ParametricCurve {
 
    private final Vec start, control, end;
 
@@ -23,7 +23,7 @@ public class BezierQuad implements ParametricCurve {
     }
 
     public BoundingBox getBoundingBox() {
-        return new BoundingBox(new double[] { start.x(), control.x(), end.x()},
+        return BoundingBox.containing(new double[] { start.x(), control.x(), end.x()},
                 new double[] { start.y(), control.y(), end.y()});
     }
 

@@ -4,7 +4,7 @@ package uk.co.danielrendall.mathlib.geom2d;
  * @author Daniel Rendall
  * @created 23-May-2009 11:08:18
  */
-public class Point implements XY {
+public final class Point implements XY {
 
     public static enum Compass {NE, NW, SW, SE, N, S, E, W, CENTER}
 
