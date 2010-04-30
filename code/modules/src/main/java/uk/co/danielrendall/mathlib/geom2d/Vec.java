@@ -1,5 +1,7 @@
 package uk.co.danielrendall.mathlib.geom2d;
 
+import uk.co.danielrendall.mathlib.util.Mathlib;
+
 /**
  * @author Daniel Rendall
  * @created 23-May-2009 10:51:28
@@ -35,6 +37,27 @@ public final class Vec implements XY {
 
     public final double length() {
         return rep.mod();
+    }
+
+    public double lengthSquared() {
+        return rep.modSquared();
+    }
+
+    public double approximateLength() {
+        final double absX = Math.abs(x());
+        final double absY = Math.abs(y());
+        final double sum = absX + absY;
+        if (sum == 0.0d) {
+            return 0.0d;
+        } else {
+            final double difference = Math.abs(absX - absY);
+            final double fractionalDifference = difference / sum;
+            //fd = 0 = no difference = multiply sum by 1/sqrt(2)
+            //fd = 1 = difference = sum = multiply sum by 1
+
+            final double factor = (1 - Mathlib.SQRT_TWO_RECIPROCAL) * fractionalDifference + Mathlib.SQRT_TWO_RECIPROCAL;
+            return sum * factor;
+        }
     }
 
     public final double angle() {

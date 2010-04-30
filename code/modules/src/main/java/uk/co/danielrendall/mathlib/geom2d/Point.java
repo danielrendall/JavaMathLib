@@ -6,8 +6,6 @@ package uk.co.danielrendall.mathlib.geom2d;
  */
 public final class Point implements XY {
 
-    public static enum Compass {NE, NW, SW, SE, N, S, E, W, CENTER}
-
     private final double OCT1 = -7.0d * Math.PI / 8.0d;
     private final double OCT2 = -5.0d * Math.PI / 8.0d;
     private final double OCT3 = -3.0d * Math.PI / 8.0d;
@@ -63,6 +61,18 @@ public final class Point implements XY {
         return (String.format("(%s, %s)", rep.x(), rep.y()));
     }
 
+    public final double distanceTo(Point other) {
+        return line(other).length();
+    }
+
+    public double squaredDistanceTo(Point other) {
+        return line(other).lengthSquared();
+    }
+
+    public double approximateDistanceTo(Point other) {
+        return line(other).approximateLength();
+    }
+
     final Complex rep() {
         return rep;
     }
@@ -108,4 +118,5 @@ public final class Point implements XY {
         if (angle < QUAD3) return Compass.NE;
         return Compass.NW;
     }
+
 }

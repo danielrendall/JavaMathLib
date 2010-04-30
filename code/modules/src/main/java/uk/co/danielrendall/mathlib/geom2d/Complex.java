@@ -1,5 +1,7 @@
 package uk.co.danielrendall.mathlib.geom2d;
 
+import uk.co.danielrendall.mathlib.util.Mathlib;
+
 /**
  * @author Daniel Rendall
  * @created 23-May-2009 10:05:23
@@ -49,7 +51,11 @@ public final class Complex implements XY {
     }
 
     public final double mod() {
-        return xIsZero && yIsZero ? 0.0 : Math.sqrt((x * x) + (y * y));
+        return xIsZero && yIsZero ? 0.0 : Mathlib.pythagorus(x, y);
+    }
+
+    public final double modSquared() {
+        return xIsZero && yIsZero ? 0.0 : Mathlib.pythagorusSquared(x, y);
     }
 
     public final double arg() {

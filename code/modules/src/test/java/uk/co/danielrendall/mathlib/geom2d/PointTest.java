@@ -15,23 +15,23 @@ public class PointTest {
 
     @Test
     public void testGetQuadrant() {
-        assertEquals(Point.Compass.NW, new Point(-3.0d,4.0d).getQuadrant());
-        assertEquals(Point.Compass.W, new Point(-3.0d,0.0d).getQuadrant());
-        assertEquals(Point.Compass.NE, new Point(2.0d,5.0d).getQuadrant());
-        assertEquals(Point.Compass.CENTER, new Point(0.0d,0.0d).getQuadrant());
-        assertEquals(Point.Compass.S, new Point(0.0d,-6.0d).getQuadrant());
-        assertEquals(Point.Compass.N, new Point(0.0d,7.5d).getQuadrant());
+        assertEquals(Compass.NW, new Point(-3.0d,4.0d).getQuadrant());
+        assertEquals(Compass.W, new Point(-3.0d,0.0d).getQuadrant());
+        assertEquals(Compass.NE, new Point(2.0d,5.0d).getQuadrant());
+        assertEquals(Compass.CENTER, new Point(0.0d,0.0d).getQuadrant());
+        assertEquals(Compass.S, new Point(0.0d,-6.0d).getQuadrant());
+        assertEquals(Compass.N, new Point(0.0d,7.5d).getQuadrant());
     }
 
     @Test
     public void testGetOctant() {
-        assertEquals(Point.Compass.NW, new Point(-3.0d,4.0d).getOctant());
-        assertEquals(Point.Compass.W, new Point(-30.0d,1.0d).getOctant());
-        assertEquals(Point.Compass.W, new Point(-30.0d,-1.0d).getOctant());
-        assertEquals(Point.Compass.NE, new Point(5.0d,5.0d).getOctant());
-        assertEquals(Point.Compass.CENTER, new Point(0.0d,0.0d).getOctant());
-        assertEquals(Point.Compass.S, new Point(0.5d,-6.0d).getOctant());
-        assertEquals(Point.Compass.N, new Point(-0.3d,7.5d).getOctant());
+        assertEquals(Compass.NW, new Point(-3.0d,4.0d).getOctant());
+        assertEquals(Compass.W, new Point(-30.0d,1.0d).getOctant());
+        assertEquals(Compass.W, new Point(-30.0d,-1.0d).getOctant());
+        assertEquals(Compass.NE, new Point(5.0d,5.0d).getOctant());
+        assertEquals(Compass.CENTER, new Point(0.0d,0.0d).getOctant());
+        assertEquals(Compass.S, new Point(0.5d,-6.0d).getOctant());
+        assertEquals(Compass.N, new Point(-0.3d,7.5d).getOctant());
     }
 
 }

@@ -2,12 +2,9 @@ package uk.co.danielrendall.mathlib.geom2d;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,6 +14,24 @@ import static junit.framework.Assert.assertTrue;
  * To change this template use File | Settings | File Templates.
  */
 public class BoundingBoxTest {
+
+    private static Comparator<BoundingBox> comparePythagorus = new Comparator<BoundingBox>() {
+        public int compare(BoundingBox o1, BoundingBox o2) {
+            return Double.compare(o1.getCenter().distanceTo(Point.ORIGIN), o2.getCenter().distanceTo(Point.ORIGIN));
+        }
+    };
+
+    private static Comparator<BoundingBox> comparePythagorusSquared = new Comparator<BoundingBox>() {
+        public int compare(BoundingBox o1, BoundingBox o2) {
+            return Double.compare(o1.getCenter().squaredDistanceTo(Point.ORIGIN), o2.getCenter().squaredDistanceTo(Point.ORIGIN));
+        }
+    };
+
+    private static Comparator<BoundingBox> compareApproximate = new Comparator<BoundingBox>() {
+        public int compare(BoundingBox o1, BoundingBox o2) {
+            return Double.compare(o1.getCenter().approximateDistanceTo(Point.ORIGIN), o2.getCenter().approximateDistanceTo(Point.ORIGIN));
+        }
+    };
 
     @Test
     public void testBoxFromNumbers() {
@@ -165,5 +180,35 @@ public class BoundingBoxTest {
 
             }
         }
+    }
+
+    @Test
+    public void multipleBoxOrderingTest() {
+        BoundingBox bigBox = new BoundingBox(-100.0d, 100.0d, -100.0d, 100.0d);
+        List<BoundingBox> boxes1 = new ArrayList<BoundingBox>();
+        for (int i=0; i<100000; i++) {
+            boxes1.add(BoundingBox.containing(bigBox.randomPoint(), bigBox.randomPoint()));
+        }
+        List<BoundingBox> boxes2 = new ArrayList<BoundingBox>(boxes1);
+        List<BoundingBox> boxes3 = new ArrayList<BoundingBox>(boxes1);
+        long start = System.nanoTime();
+        Collections.sort(boxes1, comparePythagorus);
+        long mid1 = System.nanoTime();
+        Collections.sort(boxes2, comparePythagorusSquared);
+        long mid2 = System.nanoTime();
+        Collections.sort(boxes3, compareApproximate);
+        long end = System.nanoTime();
+
+        System.out.println("Pythagorus: " + (mid1 - start));
+        System.out.println("Pythagorus Squared: " + (mid2 - mid1));
+        System.out.println("Approximate: " + (end - mid2));
+
+        assertEquals(boxes1, boxes2);
+
+        int numEqual = 0;
+        for (int i=0; i< boxes1.size(); i++) {
+            if (boxes1.get(i) == boxes3.get(i)) numEqual++;
+        }
+        System.out.println("Number equal is " + numEqual);
     }
 }

@@ -1,5 +1,10 @@
 package uk.co.danielrendall.mathlib.geom2d;
 
+import uk.co.danielrendall.mathlib.util.Mathlib;
+
+import java.awt.*;
+import java.awt.geom.Point2D;
+
 /**
  * Created by IntelliJ IDEA.
 * User: daniel
@@ -9,10 +14,7 @@ package uk.co.danielrendall.mathlib.geom2d;
 */
 public final class BoundingBox {
     private final double minX, maxX, minY, maxY;
-
-    public BoundingBox() {
-        this(Double.MAX_VALUE, Double.MIN_VALUE, Double.MAX_VALUE, Double.MIN_VALUE);
-    }
+    private final Point center;
 
     public static BoundingBox containing(Point... points) {
         double minX = Double.MAX_VALUE;
@@ -45,36 +47,36 @@ public final class BoundingBox {
     }
 
     public BoundingBox(double minX, double maxX, double minY, double maxY) {
+        if (minX > maxX || minY > maxY) throw new IllegalArgumentException(String.format("Bad bounds: %s, %s, %s, %s", minX, maxX, minY, maxY));
         this.minX = minX;
         this.maxX = maxX;
         this.minY = minY;
         this.maxY = maxY;
+        this.center = new Point(Mathlib.mean(minX, maxX), Mathlib.mean(minY, maxY));
     }
 
     public final BoundingBox expandToInclude(BoundingBox other) {
-        boolean isIncluded = true;
+        if (contains(other)) return this;
+        if (isContainedBy(other)) return other;
+
         double newMinX = minX;
         double newMaxX = maxX;
         double newMinY = minY;
         double newMaxY = maxY;
 
         if (other.minX < minX) {
-            isIncluded = false;
             newMinX = other.minX;
         }
         if (other.maxX > maxX) {
-            isIncluded = false;
             newMaxX = other.maxX;
         }
         if (other.minY < minY) {
-            isIncluded = false;
             newMinY = other.minY;
         }
         if (other.maxY > maxY) {
-            isIncluded = false;
             newMaxY = other.maxY;
         }
-        return isIncluded ? this : new BoundingBox(newMinX, newMaxX, newMinY, newMaxY);
+        return new BoundingBox(newMinX, newMaxX, newMinY, newMaxY);
     }
 
     public double getMinX() {
@@ -122,6 +124,19 @@ public final class BoundingBox {
         double y = Math.random() * getHeight() + minY;
         return new Point(x, y);
     }
+
+    public Point getCenter() {
+        return center;
+    }
+
+    public double centerDistanceTo(BoundingBox other) {
+        return center.distanceTo(other.getCenter());
+    }
+
+    public double squaredCenterDistanceTo(BoundingBox other) {
+        return center.squaredDistanceTo(other.getCenter());
+    }
+
 
     public String forSvg() {
         return String.format("%5.1f %5.1f %5.1f %5.1f", minX, minY, maxX, maxY);

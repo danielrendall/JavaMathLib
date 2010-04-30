@@ -1,6 +1,8 @@
 package uk.co.danielrendall.mathlib.geom2d;
 
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -52,6 +54,19 @@ public class VecTest {
 
         assertEquals(vec1.length(), vec1.normalize().dotProduct(vec1), DELTA);
         assertEquals(vec2.length(), vec2.normalize().dotProduct(vec2), DELTA);
+    }
+
+    @Test @Ignore
+    public void testApproximateLength() {
+        final double increment = Math.PI / 180;
+        Vec base = new Vec(100.0d, 0.0d);
+        for (int i=0; i< 180; i++) {
+            Vec test = base.rotate(increment * (double) i);
+            double length = test.length();
+            double approx = test.approximateLength();
+            System.out.println("Angle: " + i + " length " + length + " approx " + approx + " diff " + (length - approx));
+        }
+
     }
 
 }

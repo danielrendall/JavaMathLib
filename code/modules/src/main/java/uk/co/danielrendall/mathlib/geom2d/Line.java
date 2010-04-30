@@ -39,6 +39,15 @@ public final class Line implements ParametricCurve {
         return vec.length();
     }
 
+    public double lengthSquared() {
+        return vec.lengthSquared();
+    }
+
+    public double approximateLength() {
+        return vec.approximateLength();
+    }
+
+
     public Point evaluate(double parameter) {
         return start.displace(vec.scale(parameter));
     }
