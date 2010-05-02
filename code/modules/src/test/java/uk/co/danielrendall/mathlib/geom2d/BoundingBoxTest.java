@@ -1,5 +1,6 @@
 package uk.co.danielrendall.mathlib.geom2d;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.*;
@@ -182,7 +183,8 @@ public class BoundingBoxTest {
         }
     }
 
-    @Test
+    // Ignore for now, it doesn't really prove very much and takes a while to run
+    @Test @Ignore
     public void multipleBoxOrderingTest() {
         BoundingBox bigBox = new BoundingBox(-100.0d, 100.0d, -100.0d, 100.0d);
         List<BoundingBox> boxes1 = new ArrayList<BoundingBox>();
@@ -210,5 +212,14 @@ public class BoundingBoxTest {
             if (boxes1.get(i) == boxes3.get(i)) numEqual++;
         }
         System.out.println("Number equal is " + numEqual);
+    }
+
+    @Test
+    public void testEmptyBox() {
+        BoundingBox empty = BoundingBox.empty();
+        BoundingBox nonEmpty = new BoundingBox(2.0d, 11.0d, 3.0d, 8.0d);
+        assertFalse(empty.contains(nonEmpty));
+        BoundingBox expanded = empty.expandToInclude(nonEmpty);
+        assertEquals(nonEmpty, expanded);
     }
 }

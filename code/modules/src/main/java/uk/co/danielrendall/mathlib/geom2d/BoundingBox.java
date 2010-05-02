@@ -16,6 +16,10 @@ public final class BoundingBox {
     private final double minX, maxX, minY, maxY;
     private final Point center;
 
+    public static BoundingBox empty() {
+        return new BoundingBox(Double.MAX_VALUE, -Double.MAX_VALUE, Double.MAX_VALUE, -Double.MAX_VALUE, false);
+    }
+
     public static BoundingBox containing(Point... points) {
         double minX = Double.MAX_VALUE;
         double maxX = -Double.MAX_VALUE;
@@ -47,7 +51,13 @@ public final class BoundingBox {
     }
 
     public BoundingBox(double minX, double maxX, double minY, double maxY) {
-        if (minX > maxX || minY > maxY) throw new IllegalArgumentException(String.format("Bad bounds: %s, %s, %s, %s", minX, maxX, minY, maxY));
+        this(minX, maxX, minY, maxY, true);
+    }
+
+    // Private constructor used to create 'empty' box which contains nothing and will expand correctly
+    // if 'expandToInclude' is used
+    private BoundingBox(double minX, double maxX, double minY, double maxY, boolean checkSanity) {
+        if (checkSanity && (minX > maxX || minY > maxY)) throw new IllegalArgumentException(String.format("Bad bounds: %s, %s, %s, %s", minX, maxX, minY, maxY));
         this.minX = minX;
         this.maxX = maxX;
         this.minY = minY;
