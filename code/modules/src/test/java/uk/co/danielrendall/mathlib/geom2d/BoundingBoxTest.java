@@ -54,6 +54,7 @@ public class BoundingBoxTest {
     }
 
     @Test
+    
     public void testContains() {
         BoundingBox initial = new BoundingBox(-7.0d, -3.0d, -2.0d, 4.0d);
         BoundingBox inner = new BoundingBox(-6.0d, -4.0d, -1.0d, 3.0d);

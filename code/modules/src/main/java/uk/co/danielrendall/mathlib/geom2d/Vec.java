@@ -98,7 +98,12 @@ public final class Vec implements XY {
     }
 
     public final String toString() {
-        return (String.format("(%5.3f, %5.3f)", rep.x(), rep.y()));
+        return toString(5,3);
+    }
+
+    public final String toString(int whole, int decimal) {
+        final String format = "%" + whole + "." + decimal + "f";
+        return (String.format("(" + format + ", " + format + ")", rep.x(), rep.y()));
     }
 
     public final double x() {
