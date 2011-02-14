@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2010 Daniel Rendall
+ * Copyright (c) 2009, 2010, 2011 Daniel Rendall
  * This file is part of JavaMathLib.
  *
  * JavaMathLib is free software: you can redistribute it and/or modify
