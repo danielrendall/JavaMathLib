@@ -28,8 +28,6 @@ public final class Complex implements XY {
 
     private final static double EPSILON = Double.MIN_VALUE * 100;
 
-    private final static double HALF_PI = Math.PI / 2.0d;
-
     private final boolean xIsZero;
     private final boolean yIsZero;
 

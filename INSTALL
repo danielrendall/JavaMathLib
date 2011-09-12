@@ -1,0 +1,9 @@
+You need Maven installed (http://maven.apache.org/) and a JDK (anything with generics
+will probably work)
+
+Build with Maven:
+
+cd code/modules
+mvn install
+
+Or, for the lazy, run ./build.sh in this directory
