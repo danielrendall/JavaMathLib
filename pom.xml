@@ -34,7 +34,10 @@
   <distributionManagement>
     <repository>
       <id>github</id>
-    </repository>
+      <name>GitHub</name>
+      <url>https://maven.pkg.github.com/danielrendall/JavaMathLib</url>
+      <layout>default</layout>
+   </repository>
   </distributionManagement>
   <dependencies>
     <dependency>
@@ -95,15 +98,5 @@
       </plugin>
     </plugins>
   </build>
-
-  <repositories>
-    <repository>
-      <id>github</id>
-      <name>GitHub</name>
-      <url>https://maven.pkg.github.com/danielrendall/JavaMathLib</url>
-      <layout>default</layout>
-    </repository>
-
-  </repositories>
 
 </project>
