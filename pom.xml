@@ -31,6 +31,11 @@
   </licenses>
   <name>JavaMathLib</name>
   <url></url>
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+    </repository>
+  </distributionManagement>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
