@@ -98,14 +98,9 @@
 
   <repositories>
     <repository>
-      <id>IBiblio</id>
-      <url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>
-    </repository>
-
-    <repository>
-      <id>maven2-repository.dev.java.net</id>
-      <name>Java.net Repository for Maven</name>
-      <url>http://download.java.net/maven/2/</url>
+      <id>github</id>
+      <name>GitHub</name>
+      <url>https://maven.pkg.github.com/danielrendall/JavaMathLib</url>
       <layout>default</layout>
     </repository>
 
